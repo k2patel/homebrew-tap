@@ -2,6 +2,31 @@
 
 Homebrew formulae maintained by K2 Patel.
 
+## Petika
+
+[Petika](https://github.com/k2patel/petika) is a password manager with encrypted
+local vaults. The formula installs the standalone CLI on macOS (Apple Silicon
+and Intel) and Linux (ARM64 and x86-64). It verifies the archive against a
+pinned SHA-256 checksum. Windows x86-64 is available from the
+[CLI release](https://github.com/k2patel/petika/releases/tag/cli-v0.1.0).
+
+```sh
+brew install k2patel/tap/petika
+petika --version
+brew test k2patel/tap/petika
+```
+
+To upgrade an existing installation:
+
+```sh
+brew update
+brew upgrade k2patel/tap/petika
+```
+
+The CLI supports browser-approved account login and legacy passphrase or
+recipient vaults. Access to browser-passkey vault secrets from the CLI requires
+per-action device approval integration, which is pending.
+
 ## container-docker
 
 [`container-docker`](https://github.com/k2patel/container-docker) translates
