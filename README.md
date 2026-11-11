@@ -8,12 +8,20 @@ Homebrew formulae maintained by K2 Patel.
 local vaults. The formula installs the standalone CLI on macOS (Apple Silicon
 and Intel) and Linux (ARM64 and x86-64). It verifies the archive against a
 pinned SHA-256 checksum. Windows x86-64 is available from the
-[CLI release](https://github.com/k2patel/petika/releases/tag/cli-v0.1.0).
+[CLI release](https://github.com/k2patel/petika/releases/tag/cli-v0.1.1).
 
 ```sh
 brew install k2patel/tap/petika
 petika --version
 brew test k2patel/tap/petika
+```
+
+CLI 0.1.1 includes opt-in Touch ID unlock for local passphrase vaults on supported
+Macs. Enrollment verifies the existing vault passphrase and Touch ID approval.
+
+```sh
+petika biometric enable
+petika --biometric get Email/example --reveal
 ```
 
 To upgrade an existing installation:

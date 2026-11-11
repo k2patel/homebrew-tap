@@ -9,34 +9,39 @@ class Petika < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/k2patel/petika/releases/download/cli-v0.1.0/petika-0.1.0-aarch64-apple-darwin.tar.gz"
-      sha256 "f05d41f7f6f47a7e5d944800092901d57e1cca6461f3fe01eba7959ca828b79a"
+      url "https://github.com/k2patel/petika/releases/download/cli-v0.1.1/petika-0.1.1-aarch64-apple-darwin.tar.gz"
+      sha256 "a35208abdbb9d57d7d6689fe9c1ef1a298b702cd7087759c01efcdad75a048d8"
     end
     on_intel do
-      url "https://github.com/k2patel/petika/releases/download/cli-v0.1.0/petika-0.1.0-x86_64-apple-darwin.tar.gz"
-      sha256 "5b8e862837735683389bf64e78e266a1afdeebf687107e49d64f28bf851ac98d"
+      url "https://github.com/k2patel/petika/releases/download/cli-v0.1.1/petika-0.1.1-x86_64-apple-darwin.tar.gz"
+      sha256 "a4ce14290174dd124ac218a8db804f5f5b169522c5aed1a320215dbac93bbd9e"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/k2patel/petika/releases/download/cli-v0.1.0/petika-0.1.0-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "62abc2eeef2cc071feaf5c65b7579056197c1ec1fbb65d8a7cd80d91f5df28d7"
+      url "https://github.com/k2patel/petika/releases/download/cli-v0.1.1/petika-0.1.1-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "0cd61a4e8d66a0d9ac05c9f484891e50c06ac13155cef0a2af06a2dafca9d789"
     end
     on_intel do
-      url "https://github.com/k2patel/petika/releases/download/cli-v0.1.0/petika-0.1.0-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "36835e9c4696e1b978ec61348777a90791851f0f214ccc49b5a67a0cb43e1d91"
+      url "https://github.com/k2patel/petika/releases/download/cli-v0.1.1/petika-0.1.1-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "22d6db56749d4da97a261cc6fa347cdeacd6d1a6d7dc30c876f374ff1baf5015"
     end
   end
 
   def install
     bin.install "petika"
-    bin.install "petika-macos-unlock" if OS.mac? && File.exist?("petika-macos-unlock")
+    bin.install "petika-macos-unlock" if OS.mac?
     pkgshare.install "LICENSE", "THIRD_PARTY_NOTICES.txt", "build.json"
   end
 
   def caveats
     <<~EOS
+      On supported Macs, enroll a local passphrase vault with:
+        petika biometric enable
+      Then request Touch ID for a command with:
+        petika --biometric get NAME --reveal
+
       The CLI supports browser-approved account login and legacy passphrase or
       recipient vaults. Access to secrets in browser-passkey vaults requires
       per-action device approval integration, which is pending.
@@ -45,6 +50,7 @@ class Petika < Formula
 
   test do
     assert_match version.to_s, shell_output("#{bin}/petika --version")
+    assert_path_exists bin/"petika-macos-unlock" if OS.mac?
     store = testpath/"test.petika"
     command = [bin/"petika", "--no-config", "--store", store, "--passphrase-stdin"]
     passphrase = "synthetic Homebrew test passphrase\n"
