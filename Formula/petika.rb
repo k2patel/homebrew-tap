@@ -5,7 +5,6 @@
 class Petika < Formula
   desc "Password manager with encrypted local vaults"
   homepage "https://github.com/k2patel/petika"
-  version "0.1.0"
   license "MIT"
 
   on_macos do
