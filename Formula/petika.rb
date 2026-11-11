@@ -31,6 +31,7 @@ class Petika < Formula
 
   def install
     bin.install "petika"
+    bin.install "petika-macos-unlock" if OS.mac? && File.exist?("petika-macos-unlock")
     pkgshare.install "LICENSE", "THIRD_PARTY_NOTICES.txt", "build.json"
   end
 
